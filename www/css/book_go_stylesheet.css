@@ -1,0 +1,343 @@
+.textCentered {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.smallText {
+  font-size: xx-small;
+}
+
+.smallTx {
+  font-size: small;
+}
+
+td {
+  text-align: justify;
+  vertical-align: middle;
+}
+
+table {
+  empty-cells: hide;
+}
+
+tr {
+  text-align: center;
+  vertical-align: middle;
+}
+
+#kirjalistaOhjeteksti {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.kirjalistaus > .col-xs-4:nth-child(3n+1) {
+    clear: both;
+}
+
+.omatKirjat > .col-xs-4:nth-child(3n+1) {
+  clear: both;
+}
+
+.img-responsive {
+	min-height: 120px;
+	min-width: 70px;
+}
+
+.thumbnail {
+	min-height: 130px;
+	min-width: 85px;
+}
+
+.btn-group {
+	border-radius:0;
+}
+
+.footerButtonBackground {
+	border-radius:0;
+}
+.footerButtonBackgroundSelected{
+	background-color: #e6e6e6
+}
+
+.starButton {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    padding: none;
+    outline: none;
+    float: right;
+    margin-left: none;
+    margin-right: none;
+    margin-top: none;
+    margin-bottom: none;
+}
+
+#tahtiTays {
+  float: right;
+  padding-right: 5px;
+  margin-bottom: 7px;
+  margin-top: 30px;
+}
+
+#tahtiTays:hover {
+  padding: none;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+#tahtiTays:active {
+  padding: none;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.blackText {
+  color: black;
+  font-family: sans-serif;
+}
+
+.fa-star {
+  color: #ffcc00;
+}
+
+.fa-star-o {
+  color: #ffcc00;
+}
+
+#backButton:active {
+  color: white;
+  padding: none;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+#backButton:hover {
+  color: white;
+  padding: none;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+#menuButton:active {
+  color: white;
+  padding: none;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+#menuButton:hover {
+  color: white;
+  padding: none;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.valitseKirjaKuva {
+  max-height: 50px;
+  padding-bottom: 3px;
+}
+
+#aloituskuva {
+  margin-top: 2em;
+  vertical-align: middle;
+}
+
+#aloitusTeksti {
+  text-align: center;
+  color: #b1015c;
+}
+
+div.showAndHideEffect {
+	white-space: nowrap;
+ 	width: 65%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+div.showAndHideEffect:hover {
+	white-space: normal;
+  overflow: visible;
+}
+
+div.element1 {float:left;padding-top: 3px;}
+div.element2 {padding-left: 3%; float: left;padding-top: 3px;}
+div.element3 {float:right; padding-right: 29px; margin: 0;}
+div.element4 {right: 12px; position: absolute;font-size: 12px;}
+div.element5 {float: right; width:28%; text-align: right; padding-right: 12px; font-size: 12px; line-height: 95%;}
+
+#brClass{line-height: 95%;}
+
+#tehtavalistaSisalto {
+	padding-left: 4%;
+}
+
+hr {
+	margin-top: 0.2em;
+	margin-bottom: 0.2em;
+}
+
+#searchButton {
+  border-style: groove;
+  border-width: 1px;
+  border-color: #b1015c;
+}
+
+#searchField {
+  border-style: groove;
+  border-width: 1px;
+  border-color: #b1015c;
+}
+
+div.kirjanNimi {
+  font-size: 25px;
+	line-height: 80%;
+	margin-top: 8px;
+	margin-bottom: 7px;
+}
+
+#chooseBookList {
+  margin-bottom: 2em;
+}
+
+#kirjaValinta {
+  padding-left: 6px;
+  margin-top: 5px;
+}
+
+.ryhmaButton{
+	background-color: #b1015c;
+	border: 1px solid #7b0040;
+	font-size: 65%;
+}
+
+.ryhmaButton:hover:not(.ryhmaButtonPressed) {
+	background-color: #b1015c;
+	border: 1px solid #7b0040;
+}
+
+.ryhmaButtonPressed {
+	background-color: #f7e5ee;
+	color: black;
+}
+
+.ryhmaButtonPressed:hover{
+	background-color: #f7e5ee;
+	color: black;
+}
+
+#menuButton {
+	font-size: 125%;
+	padding-right: 10px;
+}
+
+#backButton {
+	font-size: 125%;
+	padding-left: 10px;
+}
+
+#searchButton{
+	font-size: 14px;
+	padding: 6px 12px;
+}
+
+.popUpButton{
+	padding: 6px 12px;
+	font-size: 14px;
+}
+
+.searchResults {
+  text-align: left;
+}
+
+.kansikuvaContainer{
+  position: relative;
+  min-height: 1px;
+  padding-right: 5px;
+  padding-left: 2px;
+	width: 45%;
+	max-width: 200px;
+	float:left;
+}
+
+#chooseTaskListContent {
+	display: block;
+  margin-left: auto;
+  margin-right: auto; 
+	width: 80%;
+}
+
+#kirjanNimi {
+  float: left;
+  padding-left: 5px;
+}
+
+#kirjaInfo {
+  float: right;
+  padding-right: 5px;
+}
+
+#lisaaOmiinKirjoihinTeksti {
+  font-weight: bold;
+}
+
+.checkboxOpenPopUps {
+  margin: 0;
+}
+
+.tehtyKirja {
+  width: 28%;
+  text-align: right;
+}
+
+.paddingBotton {
+  padding-bottom: 3px;
+}
+
+.clearBoth {
+  clear: both;
+}
+
+.kirjalistaDiv {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.kirjalistaContainer {
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.displayNone {
+  display: none;
+}
+
+#hastag {
+  padding-left: 4%;
+  float: left;
+  font-weight: bold;
+}
+
+#tehtavaTeksti {
+  padding-left: 3%;
+  float: left;
+  font-weight: bold;
+}
+
+#tehtyTeksti {
+  padding-right: 21px;
+  float: right;
+  font-weight: bold;
+}
+
+#omatKirjatContainer {
+  padding-left: 25px;
+  padding-right: 25px;
+}

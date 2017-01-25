@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+    <!--
+  * Please see the included README.md file for license terms and conditions.
+  -->
+
+    <head>
+        <link rel="stylesheet" type="text/css" href="galleria/galleria.classic.css">
+        <link rel="stylesheet" type="text/css" href="icon-fonts/font-awesome-4.3.0/css/font-awesome.css">
+        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+        <meta charset="UTF-8">
+        <title>Diplomilukija</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+
+        <!-- <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1"> -->
+        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=no">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1, maximum-scale=2"> -->
+
+        <style>
+            /* following three (cascaded) are equivalent to above three meta viewport statements */
+            /* see http://www.quirksmode.org/blog/archives/2014/05/html5_dev_conf.html */
+            /* see http://dev.w3.org/csswg/css-device-adapt/ */
+                @-ms-viewport { width: 100vw ; min-zoom: 100% ; zoom: 100% ; }          @viewport { width: 100vw ; min-zoom: 100% zoom: 100% ; }
+                @-ms-viewport { user-zoom: fixed ; min-zoom: 100% ; }                   @viewport { user-zoom: fixed ; min-zoom: 100% ; }
+                /*@-ms-viewport { user-zoom: zoom ; min-zoom: 100% ; max-zoom: 200% ; }   @viewport { user-zoom: zoom ; min-zoom: 100% ; max-zoom: 200% ; }*/
+        </style>
+
+        <link rel="stylesheet" href="css/app.css">
+        <link rel="stylesheet" type="text/css" href="css/index_main.less.css" class="main-less">
+        <link rel="stylesheet" type="text/css" href="css/book_go_stylesheet.css">
+
+        <!--
+  * cordova.js is a phantom lib for "Cordova HTML5 web app," it does nothing in a "Standard HTML5 web app"
+  * Seeing a "Failed to load resource: net::ERR_FILE_NOT_FOUND" message caused by this "cordova.js" script?
+  * The cordova.js script is required if you convert your "Standard HTML5" project into a "Cordova" project.
+  * You can safely ignore the error or comment out this line if you will not be developing a Cordova app.
+-->
+        <script src="cordova.js" id="xdkJScordova_"></script>
+
+        <script src="js/app.js"></script>
+        <!-- for your event code, see README and file comments for details -->
+        <script src="js/init-app.js"></script>
+        <!-- for your init code, see README and file comments for details -->
+        <script src="xdk/init-dev.js"></script>
+        <!-- normalizes device and document ready events, see file for details -->
+        <script type="application/javascript" src="data/kirjalista.js"></script>
+        <script type="application/javascript" src="data/tehtavat.js"></script>
+        <script type="application/javascript" src="data/hakemisto.js"></script>
+        <script type="application/javascript" src="lib/jquery.min.js"></script>
+        <script type="application/javascript" src="lib/handlebars-v4.0.5.js"></script>
+        <script type="application/javascript" src="lib/fuse.min.js"></script>
+        <script type="application/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+        <script type="application/javascript" src="marginal/marginal-position.min.js"></script>
+        <script type="application/javascript" src="js/index_user_scripts.js"></script>
+        <script type="application/javascript" src="xdk/ad/bs_subpage.js"></script>
+        <script type="application/javascript" src="xdk/appdesigner/js/rest-of-space.js"></script>
+        <script type="application/javascript" src="galleria/galleria-1.3.6.min.js"></script>
+        <script type="application/javascript" src="galleria/galleria.classic.min.js"></script>
+        <script type="application/javascript" src="galleria/galleria-startup.js"></script>
+			
+        <!-- HANDLEBARS TEMPLATES -->
+        <!--Kirjalista template-->
+        <script id="book-entry-template" type="text/x-handlebars-template">
+            {{#each kirjat}}
+              <div class='col-xs-4'>
+                <div class='thumbnail' onclick='onBookSelect({{kid}})'>
+                    <img src="{{kansiKuva}}" class='img-responsive' alt='#'>
+                  <div class='caption'>
+                    <p class='smallText'>{{kuvaus}}</p>
+                  </div>
+                </div>
+              </div>
+              {{/each}}
+        </script>
+        <!--Kirja info template-->
+        <script id="book-info-template" type="text/x-handlebars-template">
+            <div id="kirjanNimi">
+              <div class="kirjanNimi"><strong>{{kirja.nimi}}</strong></div>
+							<p>{{kirja.kuvaus}}</p>
+            </div>
+						<br><br><br>
+						<div style="clear: both;"></div>
+          <div>
+            <div class="kansikuvaContainer">
+              <img src="{{kirja.kansiKuva}}" class='img-responsive' alt='#'>
+              <br>
+            </div>
+						 <button class="btn btn-secondary btn-lg starButton" type="button" id="tahtiTays" onclick="toggleBooksOwnBookStatus({{kirja.kid}})">
+              <i id="tahtiIcon">
+               <p class="smallTx blackText" id="lisaaOmiinKirjoihinTeksti"></p>
+             	</i>
+             </button><br>
+            <div id="kirjaInfo">
+							<a href="#" onclick="avaaOuti('{{kirja.nimi}}')">Hae saatavuustiedot</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12" id="kirjanTiivistelma">
+              <p>{{kirja.synopsis}}</p>
+            </div>
+          </div>
+					<br><br><br>
+        </script>
+        <!--Tehtävälista template-->
+        <script id="tehtavat-template" type="text/x-handlebars-template">
+            {{#each tehtavat}}
+							<div class="wrapper">
+								<div class="element1"> {{tnro}} </div>
+								<div class='showAndHideEffect element2'> {{kuvaus}}</div>
+								<div class="element3"><input type="checkbox" style="margin: 0;" id="{{tid}}" onclick="openPopUps('{{tid}}')"></div><br>
+								<div class="element4" id="tehtypaiva{{tid}}"></div><div id="brClass{{tid}}" style="line-height: 95%;"></div>
+								<div class="element5" id="tehtykirja{{tid}}" style="line-height: 95%;"></div>
+								<div style="clear: both;"></div>
+							<hr>
+              {{/each}}
+        </script>
+        <!--Valitse kirja template-->
+        <script id="valitse-kirja-template" type="text/x-handlebars-template">
+            {{#each myOwnBooks}}
+              <tr>
+                <td><img src="{{kansiKuva}}" alt="#" class="valitseKirjaKuva"></td>
+                <td><a onclick='addTaskInformation({{kid}})' class="paddingBottom">&nbsp;{{nimi}}</a></td>
+              </tr>
+              {{else}}
+              <br>
+                <tr>
+                  <td>Ei kirjoja omissa kirjoissa</td>
+                </tr>
+              {{/each}}
+        </script>
+        <!--Omat kirjat template-->
+        <script id="omat-kirjat-template" type="text/x-handlebars-template">
+            {{#each omatKirjat}}
+              <div class='col-xs-4' onclick='onBookSelect({{kid}})'>
+                <div class='thumbnail'>
+                    <img src="{{kansiKuva}}" class='img-responsive' alt='#'>
+                  <div class='caption'>
+                    <p class='smallText'>{{kuvaus}}</p>
+                  </div>
+                </div>
+              </div>
+              {{/each}}
+        </script>
+        <!--Haku template-->
+        <script id="haku-template" type="text/x-handlebars-template">
+              <thead>
+                  <tr class="searchResults">
+                      <th class="searchResults">Kirjan nimi</th>
+                  </tr>
+              </thead>
+            {{#each hakutulokset}}
+              <tr class="searchResults">
+                <td class="searchResults"><a onclick='onBookSelect({{kid}})'>{{nimi}}</a></td>
+              </tr>
+              {{else}}
+              <tr class="searchResults">
+                <td class="searchResults">Haku ei tuottanut yhtään osumaa</td>
+              </tr>
+              {{/each}}
+        </script>
+        <!--Choose task list template-->
+        <script id="choose-task-list-template" type="text/x-handlebars-template">
+            {{#each tehtavalistat}}
+            <option value="{{tListaId}}">{{nimi}}</option>
+            {{/each}}
+        </script>
+        <!-- END OF HANDLEBARS TEMPLATES -->
+    </head>
+
+    <body>
+        <!-- IMPORTANT: Do not include a weinre script tag as part of your release builds! -->
+        <!-- Place your remote debugging (weinre) script URL from the Test tab here, if it does not work above -->
+        <!-- <script src="http://debug-software.intel.com/target/target-script-min.js#insertabiglongfunkynumberfromthexdkstesttab"></script> -->
+        <div class="upage" id="mainpage">
+            <div class="upage-outer">
+                <div id="aloitussivu" class="upage-content wrapping-col left">
+                    <div class="container">
+                        <img src="images/aloituskuva_nelio.png" class="img-responsive img-circle" id="aloituskuva" alt="#">
+                        <h1 id="aloitusTeksti"><strong>TERVETULOA!</strong></h1>
+                    </div>
+                </div>
+                <div class="uib-header header-bg container-group inner-element uib_w_6 uib-header-fixed sizing_header" data-uib="layout/header" data-ver="0">
+                    <h2 id="headerText">Diplomilukija</h2>
+                    <div class="widget-container wrapping-col single-centered"></div>
+                    <div class="widget-container content-area horiz-area wrapping-col left">
+                        <button class="btn widget uib_w_7 d-margins whiteText button_active btn-link footerButtonBackground hidden" data-uib="twitter%20bootstrap/button" data-ver="1" id="backButton"><i class="glyphicon glyphicon-chevron-left" data-position="icon only"></i>
+                        </button>
+
+                    </div>
+                    <div class="widget-container content-area horiz-area wrapping-col right">
+                        <button class="btn widget uib_w_8 d-margins footerButtonBackground buttonNoBorder whiteText btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="menuButton"><i class="fa fa-navicon" data-position="icon only"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="uib-footer uib-footer-fixed footer-bg container-group inner-element uib_w_1" id="footer" data-uib="layout/footer" data-ver="0">
+                    <h2></h2>
+                    <div class="widget-container wrapping-col single-centered">
+                        <div class="btn-group uib-bs-flex widget uib_w_2 d-margins Footer-buttons" data-uib="twitter%20bootstrap/button_group" data-ver="1">
+                            <button class="btn widget uib_w_3 whiteText footerButtonBackground buttonNoBorder textSize btn-default Button_no_border" data-uib="twitter%20bootstrap/button" data-ver="1" id="kirjalistaButton"><i class="glyphicon glyphicon-th-list button-icon-top" data-position="top"></i>Kirjalista</button>
+                            <button class="btn widget uib_w_4 whiteText footerButtonBackground buttonNoBorder textSize Button_no_border btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="tehtavalistaButton"><i class="glyphicon glyphicon-pencil button-icon-top" data-position="top"></i>Tehtävät</button>
+                            <button class="btn widget uib_w_5 whiteText footerButtonBackground textSize Button_no_border buttonNoBorder btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="omatKirjatButton"><i class="glyphicon glyphicon-book button-icon-top" data-position="top"></i>Omat kirjat</button>
+                            <button class="btn widget uib_w_6 whiteText footerButtonBackground buttonNoBorder textSize Button_no_border btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="etsiKirjojaButton"><i class="glyphicon glyphicon-search button-icon-top" data-position="top"></i>Etsi kirjoja</button>
+                        </div>
+                    </div>
+                    <div class="widget-container content-area horiz-area wrapping-col left"></div>
+                    <div class="widget-container content-area horiz-area wrapping-col right"></div>
+                </div>
+                <div id="kirjalista" class="upage-content hidden wrapping-col left">
+											<div class="kirjalistaDiv">
+												<div class="btn-group btn-group-justified" >
+  												<div class="btn-group">
+    												<button type="button" class="btn btn-primary ryhmaButtonPressed ryhmaButton" id="klassikotButton">Klassikot</button>
+													</div>
+													<div class="btn-group">
+    												<button type="button" class="btn btn-primary ryhmaButton" id="runotButton">Runot ja novellit</button>
+													</div>
+  												<div class="btn-group">
+    												<button type="button" class="btn btn-primary ryhmaButton" id="elamakerratButton">Elämäkerrat</button>
+  												</div>
+												</div>
+												<div class="btn-group btn-group-justified">
+  												<div class="btn-group">
+    												<button type="button" class="btn btn-primary ryhmaButton" id="sarjakuvatButton">Sarjakuvat</button>
+  												</div>
+  												<div class="btn-group">
+														<button type="button" class="btn btn-primary ryhmaButton" id="lifeButton">#lifehappens</button>
+  												</div>
+  												<div class="btn-group">
+														<button type="button" class="btn btn-primary ryhmaButton" id="jannitysButton">Jännitys ja Kauhu</button>
+  												</div>
+												</div>
+												<div class="btn-group btn-group-justified">
+													<div class="btn-group">
+														<button type="button" class="btn btn-primary ryhmaButton" id="fantasiaButton">Fantasiakirjallisuus</button>
+  												</div>
+  												<div class="btn-group">
+														<button type="button" class="btn btn-primary ryhmaButton" id="scifiButton">Scifikirjallisuus</button>
+													</div>
+													<div class="btn-group">
+														<button type="button" class="btn btn-primary ryhmaButton" id="tietoButton">Tietokirjat</button>
+													</div>
+												</div>
+												<div class="btn-group btn-group-justified">
+													<div class="btn-group">
+														<button type="button" class="btn btn-primary ryhmaButton" id="kirjaJaElokuvaButton">Kirja ja elokuva (filmattuja kirjoja)</button>
+													</div>
+													<div class="btn-group">
+														<button type="button" class="btn btn-primary ryhmaButton" id="romantiikkaButton">Romantiikka ja Historialliset tarinat</button>
+													</div>
+												</div>
+											</div>
+										<div class="container kirjalistaContainer">
+                        <div class="kirjalistaus">
+                            <div class="row" id="kirjalistausRow">
+                                <div id="klassikot" class="displayNone">
+                                    <p><strong>Klassikot</strong>
+                                    </p>
+                                    <div class="row kirjalistaus" id="klassikotContent"></div>
+                                </div>
+                                <div id="runotJaNovellit" class="displayNone">
+                                    <p><strong>Runot ja novellit</strong>
+                                    </p>
+                                    <div class="row kirjalistaus" id="runotJaNovellitContent"></div>
+                                </div>
+                                <div id="elamakerrat" class="displayNone">
+                                    <p><strong>Elämäkerrat</strong>
+                                    </p>
+                                    <div class="row kirjalistaus" id="elamakerratContent"></div>
+                                </div>
+                                <div id="sarjakuvat" class="displayNone">
+                                    <p><strong>Sarjakuvat</strong>
+                                    </p>
+                                    <div class="row kirjalistaus" id="sarjakuvatContent"></div>
+                                </div>
+                                <div id="lifehappens" class="displayNone">
+                                    <p><strong>#lifehappens</strong>
+                                    </p>
+                                    <div class="row kirjalistaus" id="lifehappensContent"></div>
+                                </div>
+                                <div id="jannitysJaKauhu" class="displayNone">
+                                    <p><strong>Jännitys ja Kauhu</strong>
+                                    </p>
+                                    <div class="row kirjalistaus" id="jannitysJaKauhuContent"></div>
+                                </div>
+                                <div id="fantasiakirjallisuus" class="displayNone">
+                                    <p><strong>Fantasiakirjallisuus</strong>
+                                    </p>
+                                    <div class="row kirjalistaus" id="fantasiakirjallisuusContent"></div>
+                                </div>
+                                <div id="scifikirjallisuus" class="displayNone">
+                                    <p><strong>Scifikirjallisuus</strong>
+                                    </p>
+                                    <div class="row kirjalistaus" id="scifikirjallisuusContent"></div>
+                                </div>
+                                <div id="romantiikkaJaHistoriallisetTarinat" class="displayNone">
+                                    <p><strong>Romantiikka ja Historialliset tarinat</strong>
+                                    </p>
+                                    <div class="row kirjalistaus" id="romantiikkaJaHistoriallisetTarinatContent"></div>
+                                </div>
+                                <div id="kirjaJaElokuva" class="displayNone">
+                                    <p><strong>Kirja ja elokuva (filmattuja kirjoja)</strong>
+                                    </p>
+                                    <div class="row kirjalistaus" id="kirjaJaElokuvaContent"></div>
+                                </div>
+                                <div id="tietokirjat" class="displayNone">
+                                    <p><strong>Tietokirjat</strong>
+                                    </p>
+                                    <div class="row kirjalistaus" id="tietokirjatContent"></div>
+                                </div>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="kirja_info" class="upage-content wrapping-col left hidden">
+                    <div class="container" id="kirja_info_content">
+                    </div>
+                    <br>
+                </div>
+                <div id="tehtavalista" class="upage-content hidden">
+                    <div>
+											<br>
+												<select class="form-control" id="chooseTaskListContent"></select><br>
+                        <div id="hastag">#</div>
+                        <div id="tehtavaTeksti">Tehtävä</div>
+                        <div id="tehtyTeksti">Tehty</div>
+                        <br>
+                        <div id="tehtavalistaSisalto"></div>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+                <div id="valitse_kirja" class="upage-content wrapping-col left hidden">
+                    <div class="container">
+                        <div class="row valitseKirjaContainer" id="kirjaValinta">
+                            <div>
+                                <div id="valitse_kirja_content">
+                                </div>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                </table>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="omat_kirjat" class="upage-content hidden wrapping-col left">
+                    <div class="container" id="omatKirjatContainer">
+                        <br>
+                        <div class="omatKirjalistaus">
+                            <div class="row" id="omatKirjatListausRow">
+                                <div id="omatKlassikot">
+                                    <p><strong>Klassikot</strong>
+                                    </p>
+                                    <div class="row kirjalistaus" id="omatKlassikotContent"></div>
+                                </div>
+                                <div id="omatRunotJaNovellit">
+                                    <p><strong>Runot ja novellit</strong>
+                                    </p>
+                                    <div class="row kirjalistaus" id="omatRunotJaNovellitContent"></div>
+                                </div>
+                                <div id="omatElamakerrat">
+                                    <p><strong>Elämäkerrat</strong>
+                                    </p>
+                                    <div class="row kirjalistaus" id="omatElamakerratContent"></div>
+                                </div>
+                                <div id="omatSarjakuvat">
+                                    <p><strong>Sarjakuvat</strong>
+                                    </p>
+                                    <div class="row kirjalistaus" id="omatSarjakuvatContent"></div>
+                                </div>
+                                <div id="omatLifehappens">
+                                    <p><strong>#lifehappens</strong>
+                                    </p>
+                                    <div class="row kirjalistaus" id="omatLifehappensContent"></div>
+                                </div>
+                                <div id="omatJannitysJaKauhu">
+                                    <p><strong>Jännitys ja kauhu</strong>
+                                    </p>
+                                    <div class="row kirjalistaus" id="omatJannitysJaKauhuContent"></div>
+                                </div>
+                                <div id="omatFantasiakirjallisuus">
+                                    <p><strong>Fantasiakirjallisuus</strong>
+                                    </p>
+                                    <div class="row kirjalistaus" id="omatFantasiakirjallisuusContent"></div>
+                                </div>
+                                <div id="omatScifikirjallisuus">
+                                    <p><strong>Scifikirjallisuus</strong>
+                                    </p>
+                                    <div class="row kirjalistaus" id="omatScifikirjallisuusContent"></div>
+                                </div>
+                                <div id="omatTietokirjat">
+                                    <p><strong>Tietokirjat</strong>
+                                    </p>
+                                    <div class="row kirjalistaus" id="omatTietokirjatContent"></div>
+                                </div>
+                                <div id="omatKirjaJaElokuva">
+                                    <p><strong>Kirjat ja elokuvat</strong>
+                                    </p>
+                                    <div class="row kirjalistaus" id="omatKirjaJaElokuvaContent"></div>
+                                </div>
+																<div id="omatRomantiikkaJaHistoriallisetTarinat">
+                                    <p><strong>Romantiikka ja Historialliset tarinat</strong>
+                                    </p>
+                                    <div class="row kirjalistaus" id="omatRomantiikkaJaHistoriallisetTarinatContent"></div>
+                                </div>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="etsi_kirjoja" class="upage-content hidden wrapping-col left">
+                    <br>
+                    <div class="col-lg-6">
+                        <div class="input-group" id="searchBar">
+														<input type="text" class="form-control" id="searchField" placeholder="Hae...">
+														<span class="input-group-btn">
+                        			<button class="btn btn-secondary" type="button" id="searchButton"><i class="glyphicon glyphicon-search" data-position="icon only"></i></button>
+                      			</span>
+                        	</div>
+                        <br>
+                        <table class="table" id="searchResultsTable"></table>
+                      <br>
+                      <br>
+                    </div>
+                </div>
+            </div>
+        <div class="modal outer-element uib_w_16 pop-up-style" data-uib="twitter%20bootstrap/modal" data-ver="1" data-backdrop="true" id="tehtäväPoisPopUp">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Merkitse tehtävä tekemättömäksi?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-primary popUpButton" type="button" id="popupPoisHyvaksy" onclick="removeTaskInformation()">Hyväksy</button>
+                        <button data-dismiss="modal" class="btn btn-default popUpButton" type="button" id="popupPoisPeruuta">Peruuta</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal outer-element uib_w_16 pop-up-style" data-uib="twitter%20bootstrap/modal" data-ver="1" data-backdrop="true" id="menuPopUp">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Kirjadiplomi ohjeet</h4>
+                    </div>
+                    <div class="modal-body">
+                      <div class="container">
+                        <p>Oulun kouluissa on mahdollisuus suorittaa kirjallisuusdiplomi. Kirjalistoille on valittu paljon innostavaa, kiinnostavaa ja laadukasta luettavaa. Hyvän lukutaidon voi saavuttaa vain lukemalla paljon!</p><p>
+
+Joka yläkoulun vuosiluokalle on oma diplominsa. Lue vuoden aikana 6 teosta. Kirjalistat ja tehtävät löytyvät tästä sovelluksesta. Valitse teokset yhdestätoista kirjaryhmästä niin, että luet kirjat eri kirjaryhmistä. Lue ja nauti tarinoista! Kun olet lukenut kirjat ja tehnyt opettajan kanssa sovitut tehtävät, saat opettajalta kirjallisuusdiplomin. Olet suorittanut Yläkoulun kirjallisuusdiplomin kun olet lukenut yläkoulun aikana 18 kirjaa.</p>
+
+<p>
+Diplomilukija-sovelluksesta löytyvät yläkoulun diplomin kirjalistat sekä tehtävät. Voit varata aineistoa OUTI-verkkokirjaston kautta. Verkkokirjaston kautta voit lainata myös e-kirjoja. Tarvitset kirjastokortin ja salanumeron, ne saat kirjastosta. Aineiston varaaminen on ilmaista!</p>
+<p>Tartu kirjaan, lukemalla pääset uusiin maailmoihin!</p>
+<p>Lisätietoa kirjallisuusdiplomista: <a href="#" onclick="avaaDiplomiInfo()">http://www.ouka.fi/oulu/kirjastoreitti/<br>ylakoulun-kirjallisuusdiplomi</a></p>
+
+<p>Oulun kaupunginkirjasto<br>
+	Oulun koulukirjasto</p>
+                    </div>
+                  </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-primary popUpButton" type="button" id="instructionsOk">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+			</div>
+    </body>
+</html>

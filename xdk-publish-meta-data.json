@@ -1,0 +1,77 @@
+{
+  "categorization": {
+    "type": "APPLICATION",
+    "category": "Books"
+  },
+  "description": {
+    "texts": {
+      "title": "Diplomilukija",
+      "features": [
+        "Kirjalistan tarkastelu",
+        "Tehtävien merkintä",
+        "Kirjojen etsintä"
+      ],
+      "short-description": "Diplomilukija on Oulun yläkoulujen kirjallisuusdiplomin suorittamista tukeva sovellus. Löydä mieleisesi kirjat sekä kiinnostavimmat tehtävät ja ota askel lukemisen maailmaan! ",
+      "full-description": "Oulun kouluissa on mahdollisuus suorittaa kirjallisuusdiplomi. Diplomilukija-sovellus on tarkoitettu tukemaan Oulun yläkoulujen kirjallisuusdiplomin suorittamista. Sovelluksesta löytyvät yläkoulun diplomin kirjalistat sekä tehtävät. Voit varata aineistoa OUTI-verkkokirjaston kautta. Verkkokirjaston kautta voit lainata myös e-kirjoja. Tarvitset kirjastokortin ja salanumeron, ne saat kirjastosta. Aineiston varaaminen on ilmaista!\n\nKirjalistoille on valittu paljon innostavaa, kiinnostavaa ja laadukasta luettavaa. Hyvän lukutaidon voi saavuttaa vain lukemalla paljon!\n\nJoka yläkoulun vuosiluokalle on oma diplominsa. Lue vuoden aikana 6 teosta. Kirjalistat ja tehtävät löytyvät tästä sovelluksesta. Valitse teokset yhdestätoista kirjaryhmästä niin, että luet kirjat eri kirjaryhmistä. Lue ja nauti tarinoista! Kun olet lukenut kirjat ja tehnyt opettajan kanssa sovitut tehtävät, saat opettajalta kirjallisuusdiplomin. Olet suorittanut Yläkoulun kirjallisuusdiplomin kun olet lukenut yläkoulun aikana 18 kirjaa.\n\nTartu kirjaan, lukemalla pääset uusiin maailmoihin!",
+      "keywords": "Oulu, kaupunki, diplomilukija, kirjadiplomi, lukeminen, kirja, diplomi, kirjasto",
+      "recent-changes": "",
+      "privacy-policy": "",
+      "eula": ""
+    },
+    "images": {
+      "screenshots": [
+        "../screenshot2.png",
+        "../screenshot1.png",
+        "../screenshot3.png"
+      ],
+      "app-icon-small": "../ikoni_diplomilukija_114x114.png",
+      "app-icon": "../ikoni_diplomilukija_512x512.png",
+      "small-promo": "",
+      "large-promo": ""
+    },
+    "videos": {
+      "video-url": ""
+    }
+  },
+  "packages": {
+    "apk-file": "../cordova_project-x86.android.20170125085014.apk",
+    "zip-xdk-compliant": true,
+    "zip-file": "../bookgo.cordova.crosswalk.201701254848.zip",
+    "secondary-apk-file": "../cordova_project-armv7.android.20170125085026.apk"
+  },
+  "support": {
+    "email": "",
+    "website": ""
+  },
+  "testing-instructions": "",
+  "description-fi": {
+    "texts": {
+      "title": "Diplomilukija",
+      "features": [
+        "Kirjalistan tarkastelu",
+        "Tehtävien merkintä",
+        "Kirjojen etsintä"
+      ],
+      "short-description": "Diplomilukija on Oulun yläkoulujen kirjallisuusdiplomin suorittamista tukeva sovellus. Löydä mieleisesi kirjat sekä kiinnostavimmat tehtävät ja ota askel lukemisen maailmaan! ",
+      "full-description": "Oulun kouluissa on mahdollisuus suorittaa kirjallisuusdiplomi. Diplomilukija-sovellus on tarkoitettu tukemaan Oulun yläkoulujen kirjallisuusdiplomin suorittamista. Sovelluksesta löytyvät yläkoulun diplomin kirjalistat sekä tehtävät. Voit varata aineistoa OUTI-verkkokirjaston kautta. Verkkokirjaston kautta voit lainata myös e-kirjoja. Tarvitset kirjastokortin ja salanumeron, ne saat kirjastosta. Aineiston varaaminen on ilmaista!\n\nKirjalistoille on valittu paljon innostavaa, kiinnostavaa ja laadukasta luettavaa. Hyvän lukutaidon voi saavuttaa vain lukemalla paljon!\n\nJoka yläkoulun vuosiluokalle on oma diplominsa. Lue vuoden aikana 6 teosta. Kirjalistat ja tehtävät löytyvät tästä sovelluksesta. Valitse teokset yhdestätoista kirjaryhmästä niin, että luet kirjat eri kirjaryhmistä. Lue ja nauti tarinoista! Kun olet lukenut kirjat ja tehnyt opettajan kanssa sovitut tehtävät, saat opettajalta kirjallisuusdiplomin. Olet suorittanut Yläkoulun kirjallisuusdiplomin kun olet lukenut yläkoulun aikana 18 kirjaa.\n\nTartu kirjaan, lukemalla pääset uusiin maailmoihin!",
+      "keywords": "Oulu, kaupunki, diplomilukija, kirjadiplomi, lukeminen, kirja, diplomi, kirjasto",
+      "recent-changes": "",
+      "privacy-policy": "",
+      "eula": ""
+    },
+    "images": {
+      "screenshots": [
+        "../screenshot2.png",
+        "../screenshot1.png",
+        "../screenshot3.png"
+      ],
+      "app-icon-small": "../ikoni_diplomilukija_114x114.png",
+      "app-icon": "../ikoni_diplomilukija_512x512.png",
+      "small-promo": "",
+      "large-promo": ""
+    },
+    "videos": {
+      "video-url": ""
+    }
+  }
+}
