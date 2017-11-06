@@ -1,9 +1,10 @@
 Diplomilukija
 =====================================================================
 
-License: CC BY-NC-SA 2.0 (Free to copy, redistribute, remix, transform and build)
+License: CC BY-NC 4.0 
 
-Lisenssi: CC BY-NC-SA 2.0 (Vapaasti kopioitavissa, uudelleenjaettavissa ja muokattavissa)
+Lisenssi: CC BY-NC 4.0 
+Diplomilukija-nimi ei ole vapaasti käytettävissä.
 
 Mobile application intended to support students completing literary diploma in the city of Oulu.
 
